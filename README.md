@@ -1,0 +1,2 @@
+# Groupthink
+Senior design repository
