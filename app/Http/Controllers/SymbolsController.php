@@ -21,11 +21,17 @@ class SymbolsController extends CrudController{
 		$this->filter->submit('search');
 		$this->filter->reset('reset');
 		$this->filter->build();
+
 		$this->grid = \DataGrid::source($this->filter);
-		$this->grid->add('exchange', 'Exchange');
-		$this->grid->add('symbol', 'Symbol');
-        $this->grid->add('type', 'Type');
-        $this->grid->add('cat', 'Category');
+		$this->grid->add('exchange', 'Exchange', true);
+		$this->grid->add('symbol', 'Symbol', true);
+        $this->grid->add('type', 'Type', true);
+        $this->grid->add('cat', 'Category', true);
+        $this->grid->add('expire_month', 'Expire Month', true);
+        $this->grid->add('expire_year', 'Expire Year', true);
+        $this->grid->add('created_at', 'Created At', true);
+        $this->grid->add('updated_at', 'Updated At', true);
+
 		$this->addStylesToGrid();
 
         return $this->returnView();
@@ -38,11 +44,27 @@ class SymbolsController extends CrudController{
         // Simple code of filter and grid part.
         // List of all fields here: http://laravelpanel.com/docs/master/crud-fields
 
+        // Pre-load the months to the select box
+        $months = [null];
+        for($i = 1; $i < 13; $i++) {
+            array_push($months, $i);
+        }
+
+        // Pre-load the years to the select box
+        $years = [null];
+        for($i = 2000; $i < 2101; $i++) {
+            array_push($years, $i);
+        }
+
 		$this->edit = \DataEdit::source(new \App\Symbols());
 		$this->edit->label('Edit Symbols');
-		$this->edit->add('exchange', 'Exchange', 'text')->rule('required');
+		$this->edit->add('exchange', 'Exchange', 'text');
         $this->edit->add('symbol', 'Symbol', 'text')->rule('required');
-        $this->edit->add('type', 'Type', 'text')->rule('required');
+        $this->edit->add('expire_month', 'Expire Month', 'select')
+            ->options($months)->getValue();
+        $this->edit->add('expire_year', 'Expire Year', 'select')
+            ->options($years)->getValue();
+        $this->edit->add('type', 'Type, i.e. future', 'text');
         $this->edit->add('cat', 'Category', 'text')->rule('required');
 
         return $this->returnEditView();
