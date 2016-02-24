@@ -59,13 +59,13 @@ class SymbolsController extends CrudController{
 		$this->edit = \DataEdit::source(new \App\Symbols());
 		$this->edit->label('Edit Symbols');
 		$this->edit->add('exchange', 'Exchange', 'text');
-        $this->edit->add('symbol', 'Symbol', 'text')->rule('required');
+        $this->edit->add('symbol', 'Symbol *', 'text')->rule('required');
         $this->edit->add('expire_month', 'Expire Month', 'select')
-            ->options($months)->getValue();
+            ->options($months);
         $this->edit->add('expire_year', 'Expire Year', 'select')
-            ->options($years)->getValue();
-        $this->edit->add('type', 'Type, i.e. future', 'text');
-        $this->edit->add('cat', 'Category', 'text')->rule('required');
+            ->options($years);
+        $this->edit->add('type', 'Type, i.e. future *', 'text')->rule('required');
+        $this->edit->add('cat', 'Category *', 'text')->rule('required');
 
         return $this->returnEditView();
     }    
