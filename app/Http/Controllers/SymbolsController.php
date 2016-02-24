@@ -23,6 +23,7 @@ class SymbolsController extends CrudController{
 		$this->filter->build();
 
 		$this->grid = \DataGrid::source($this->filter);
+        $this->grid->add('id', 'ID', true);
 		$this->grid->add('exchange', 'Exchange', true);
 		$this->grid->add('symbol', 'Symbol', true);
         $this->grid->add('type', 'Type', true);
