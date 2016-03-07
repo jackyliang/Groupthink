@@ -43,14 +43,14 @@ class PricesController extends CrudController{
 
 		$this->edit = \DataEdit::source(new \App\Prices());
 		$this->edit->label('Edit Prices');
-        $this->edit->add('date', 'Date i.e. 2010-05-13', 'text')->rule('required|date_format:Y-m-d');
-        $this->edit->add('symbol_id', 'Symbol ID', 'text')->rule('required');
-        $this->edit->add('open', 'Open', 'text')->rule('required');
-        $this->edit->add('high', 'High', 'text')->rule('required');
-        $this->edit->add('low', 'Low', 'text')->rule('required');
-        $this->edit->add('last', 'Last', 'text')->rule('required');
-        $this->edit->add('settle', 'Settle', 'text')->rule('required');
-        $this->edit->add('volume', 'Volume', 'text')->rule('required');
+        $this->edit->add('date', 'Date i.e. 2010-05-13 *', 'text')->rule('required|date_format:Y-m-d');
+        $this->edit->add('symbol_id', 'Symbol ID *', 'text')->rule('required');
+        $this->edit->add('open', 'Open', 'text');
+        $this->edit->add('high', 'High', 'text');
+        $this->edit->add('low', 'Low', 'text');
+        $this->edit->add('last', 'Last', 'text');
+        $this->edit->add('settle', 'Settle', 'text');
+        $this->edit->add('volume', 'Volume', 'text');
 
         return $this->returnEditView();
     }    
