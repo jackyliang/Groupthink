@@ -52,7 +52,8 @@ class SymbolsController extends CrudController
         // Pre-load the years to the select box
         $years = [null];
         for ($i = 2000; $i < 2101; $i++) {
-            array_push($years, $i);
+
+                array_push($years, $i);
         }
 
         $this->edit = \DataEdit::source(new \App\Symbols());
