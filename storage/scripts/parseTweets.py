@@ -2,6 +2,7 @@
 import MySQLdb as mdb
 import urllib2
 import json
+import time
 
 baseUrl = "https://api.stocktwits.com/api/2/streams/symbol/"
 urlSuffix = ".json"
@@ -13,7 +14,6 @@ with con: #this creates the two tables, symbols and prices, and drops them if th
 	cur.execute(sql)
 	symbols = cur.fetchall()
 
-
 for row in symbols:
 	dbID = row[0]
 	exchange = row[1]
@@ -22,9 +22,9 @@ for row in symbols:
 	futureCat  = row[4]
 	expireMonth = row[5]
 	expireYear = row[6]
-	#stillUpdated = row[7]
+	# stillUpdated = row[7]
 	url = baseUrl + symbol + urlSuffix
-	#https://api.stocktwits.com/api/2/streams/symbol/AAPL.json
+	# https://api.stocktwits.com/api/2/streams/symbol/AAPL.json
 	
 	data = urllib2.urlopen(url).read()
 	data = json.loads(data)
@@ -37,6 +37,7 @@ for row in symbols:
 		timestamp = tweet['created_at'].encode('utf-8')
 		username = tweet['user']['username'].encode('utf-8')
 		symbol_id = db_symbol_id
+		currentTime = time.strftime('%Y-%m-%d %H:%M:%S')
 		
 		print("Message ID: " + str(messageId))
 		print("Message body: " + str(body))
@@ -45,8 +46,8 @@ for row in symbols:
 		print("Symbol: " + str(symbol_id))
 		print "\n"
 		
-		sql = "INSERT INTO Tweets(timestamp, message_id, body, username, symbol_id) VALUES ('%s', '%s', '%s', '%s', '%s') ON DUPLICATE KEY UPDATE timestamp=VALUES(timestamp), message_id=VALUES(message_id), body=VALUES(body), username=VALUES(username), symbol_id=VALUES(symbol_id)"% \
-		(timestamp, messageId, body, username, dbID)
+		sql = "INSERT INTO Tweets(timestamp, message_id, body, username, symbol_id, created_at, updated_at) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s') ON DUPLICATE KEY UPDATE timestamp=VALUES(timestamp), message_id=VALUES(message_id), body=VALUES(body), username=VALUES(username), symbol_id=VALUES(symbol_id), created_at=NOW(), updated_at=NOW()"% \
+		(timestamp, messageId, body, username, dbID, currentTime, currentTime)
 		#print sql
 		cur.execute(sql)
 	con.commit()
