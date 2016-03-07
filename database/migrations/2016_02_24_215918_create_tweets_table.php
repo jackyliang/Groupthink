@@ -18,9 +18,14 @@ class CreateTweetsTable extends Migration
             $table->integer('message_id')->nullable()->unique();
             $table->string('username', 45)->nullable();
             $table->text('body');
-            $table->string('symbol', 10);
+            $table->integer('symbol_id')->unsigned(); // Tweets.symbol_id references Symbols.id
             $table->timestamp('timestamp')->nullable();
             $table->timestamps();
+
+            // Foreign key constraint
+            $table->foreign('symbol_id')
+                ->references('id')->on('Symbols')
+                ->onDelete('cascade');
 
         });
     }
