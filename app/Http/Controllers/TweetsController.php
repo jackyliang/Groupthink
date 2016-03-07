@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use Serverfireteam\Panel\CrudController;
@@ -24,7 +23,7 @@ class TweetsController extends CrudController
         $this->grid->add('message_id', 'Message ID', true);
         $this->grid->add('username', 'Username', true);
         $this->grid->add('body', 'Message Body', true);
-        $this->grid->add('symbol', 'Symbol', true);
+        $this->grid->add('symbol_id', 'Symbol ID', true);
         $this->grid->add('timestamp', 'Message Timestamp', true);
         $this->grid->add('created_at', 'Created At', true);
         $this->grid->add('updated_at', 'Updated At', true);
@@ -47,7 +46,6 @@ class TweetsController extends CrudController
         $this->edit->add('message_id', 'Message ID', 'text')->rule('integer|required');
         $this->edit->add('username', 'Username', 'text')->rule('required');
         $this->edit->add('body', 'Message Body', 'text')->rule('required');
-        $this->edit->add('symbol', 'Symbol', 'text')->rule('required');
         $this->edit->add('timestamp', 'Message Timestamp', 'text')->rule('required');
 
         return $this->returnEditView();
