@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return array(
     |    ]
     */
     'disks' => [
-	    'local'
+        'local',
     ],
 
     /*
@@ -39,7 +39,7 @@ return array(
     */
 
     'route' => [
-        'prefix' => 'elfinder'//,
+        'prefix' => 'elfinder', //,
         //'middleware' => 'replace-this-with-your-middleware', //Set to null to disable middleware filter
     ],
 
@@ -64,15 +64,14 @@ return array(
     |
     */
 
-    'roots' => array(array('driver'        => 'LocalFileSystem',
-		           'path'          => 'files/',
-			   'accessControl' => 'Serverfireteam\Panel\libs\AppHelper::access',
-            		   'URL'           => config('app.url') . '/files',
-			   'uploadAllow'   => array('image/png', 'image/jpeg', 'image/pjpeg', 'image/gif'),
-			   'uploadDeny'    => array('all'),
-			   'uploadOrder'   => array('deny', 'allow'),
-			   'acceptedName'  => 'Serverfireteam\Panel\libs\AppHelper::validName')),
-
+    'roots' => [['driver'              => 'LocalFileSystem',
+                   'path'              => 'files/',
+               'accessControl'         => 'Serverfireteam\Panel\libs\AppHelper::access',
+                       'URL'           => config('app.url').'/files',
+               'uploadAllow'           => ['image/png', 'image/jpeg', 'image/pjpeg', 'image/gif'],
+               'uploadDeny'            => ['all'],
+               'uploadOrder'           => ['deny', 'allow'],
+               'acceptedName'          => 'Serverfireteam\Panel\libs\AppHelper::validName', ]],
 
     /*
     |--------------------------------------------------------------------------
@@ -84,5 +83,5 @@ return array(
     |
     */
 
-    'options' => array()
-);
+    'options' => [],
+];

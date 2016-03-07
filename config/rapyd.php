@@ -3,7 +3,6 @@
 
 return [
 
-
     /*
     |--------------------------------------------------------------------------
     | Data Edit defaults
@@ -11,10 +10,10 @@ return [
     */
     'data_edit' => [
         'button_position' => [
-            'save' => 'BL', // BR = Bottom Right, BL = Bottom Left, TL, TR
-            'show' => 'TR',
+            'save'   => 'BL', // BR = Bottom Right, BL = Bottom Left, TL, TR
+            'show'   => 'TR',
             'modify' => 'TR',
-            'undo' => 'TR',
+            'undo'   => 'TR',
             'delete' => 'BL',
             ],
     ],
@@ -33,8 +32,7 @@ return [
     | Field Class
     |--------------------------------------------------------------------------
     */
-    'field'=> [
-        'attributes' => ['class'=>'form-control'],
+    'field' => [
+        'attributes' => ['class' => 'form-control'],
     ],
 ];
-
