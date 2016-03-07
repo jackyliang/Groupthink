@@ -7,8 +7,11 @@ import time
 baseUrl = "https://api.stocktwits.com/api/2/streams/symbol/"
 urlSuffix = ".json"
 
+# TODO: replace hardcoded MySQL connection string with 
+# environment variables
+# 
 con = mdb.connect('localhost', 'homestead', 'secret', 'homestead');
-with con: #this creates the two tables, symbols and prices, and drops them if they already exist
+with con: 
 	cur = con.cursor()
 	sql = "SELECT * FROM Symbols WHERE type='index'"
 	cur.execute(sql)
@@ -22,7 +25,6 @@ for row in symbols:
 	futureCat  = row[4]
 	expireMonth = row[5]
 	expireYear = row[6]
-	# stillUpdated = row[7]
 	url = baseUrl + symbol + urlSuffix
 	# https://api.stocktwits.com/api/2/streams/symbol/AAPL.json
 	
@@ -46,7 +48,7 @@ for row in symbols:
 		print("Symbol: " + str(symbol_id))
 		print "\n"
 		
-		sql = "INSERT INTO Tweets(timestamp, message_id, body, username, symbol_id, created_at, updated_at) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s') ON DUPLICATE KEY UPDATE timestamp=VALUES(timestamp), message_id=VALUES(message_id), body=VALUES(body), username=VALUES(username), symbol_id=VALUES(symbol_id), created_at=NOW(), updated_at=NOW()"% \
+		sql = "INSERT INTO Tweets(timestamp, message_id, body, username, symbol_id, created_at, updated_at) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s') ON DUPLICATE KEY UPDATE updated_at=NOW()"% \
 		(timestamp, messageId, body, username, dbID, currentTime, currentTime)
 		#print sql
 		cur.execute(sql)
