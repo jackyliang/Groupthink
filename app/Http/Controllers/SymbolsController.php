@@ -21,6 +21,7 @@ class SymbolsController extends CrudController
 
         $this->grid = \DataGrid::source($this->filter);
         $this->grid->add('id', 'ID', true);
+        $this->grid->add('name', 'Name', true);
         $this->grid->add('exchange', 'Exchange', true);
         $this->grid->add('symbol', 'Symbol', true);
         $this->grid->add('type', 'Type', true);
@@ -58,6 +59,7 @@ class SymbolsController extends CrudController
         $this->edit->label('Edit Symbols');
         $this->edit->add('exchange', 'Exchange', 'text');
         $this->edit->add('symbol', 'Symbol *', 'text')->rule('required');
+        $this->edit->add('name', 'Name *', 'text')->rule('required');
         $this->edit->add('expire_month', 'Expire Month', 'select')
             ->options($months);
         $this->edit->add('expire_year', 'Expire Year', 'select')
