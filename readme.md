@@ -18,6 +18,14 @@ Documentation for the framework can be found on the [Laravel website](http://lar
 
 Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
 
+## Installation
+
+As GroupThink uses Quandl for the stocks data, Python MySQL for the scripts to access MySQL, and more, you need to install these before hand.
+
+    sudo pip install pandas
+    sudo pip install Quandl
+    sudo pip install MySQL-python
+
 ## Security Vulnerabilities
 
 If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
