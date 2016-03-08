@@ -21,7 +21,7 @@
                                     <div class="col-xs-7 title">
                                         {{$box['title']}}
                                     </div>
-                                    <div class="col-xs-5 text-right">
+                                    <div class="col-xs-7 text-right">
                                         <div class="huge">{{$box['count']}}</div>
                                         <div></div>
 
@@ -41,11 +41,6 @@
                 @endif
 
 
-            </div>
-            <div class="row hide update">
-                <div class="alert alert-warning" role="alert">
-                    <a href="http://laravelpanel.com/docs/master/update" class="alert-link"></a>
-                </div>
             </div>
 
 <script>

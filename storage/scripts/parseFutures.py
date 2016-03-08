@@ -1,53 +1,35 @@
+#!/usr/bin/python
 import Quandl
+import time
+import os
 import MySQLdb as mdb
 
 token = "HR3bqCRVRrowVExZCrEX"
 exchange = "CME"
 symbols = ["CLF2016", "CLG2016", "CLH2016"]
-#symbol = "CME/CLF2016"
 
-con = mdb.connect('localhost', 'dbuser', 'dbuser', 'mydb');
+# TODO: replace hardcoded MySQL connection string with 
+# environment variables
+
+con = mdb.connect('localhost', 'homestead', 'secret', 'homestead');
 with con: #this creates the two tables, symbols and prices, and drops them if they already exist
 	cur = con.cursor()
-	#cur.execute("SET FOREIGN_KEY_CHECKS=0")
-	#cur.execute("DROP TABLE IF EXISTS Symbols")
-	#cur.execute("DROP TABLE IF EXISTS Prices")
-	#cur.execute("SET FOREIGN_KEY_CHECKS=1")
-	#cur.execute("CREATE TABLE Symbols( \
-	#	exchange TINYTEXT, \
-	#	symbol VARCHAR(20) NOT NULL UNIQUE, \
-	#	type TINYTEXT, \
-	#	cat TINYTEXT, \
-	#	expire_month TINYINT, \
-	#	expire_year TINYINT, \
-	#	updated BOOLEAN, \
-	#	PRIMARY KEY (symbol)) ENGINE=InnoDB")
-	#
-	#cur.execute("CREATE TABLE Prices( \
-	#	id INT PRIMARY KEY AUTO_INCREMENT, \
-	#	date DATE NOT NULL UNIQUE, \
-	#	symbol VARCHAR(20), \
-	#	open FLOAT, \
-	#	high FLOAT, \
-	#	low FLOAT, \
-	#	last FLOAT, \
-	#	settle FLOAT, \
-	#	volume INT, \
-	#	FOREIGN KEY (symbol) REFERENCES Symbols(symbol)) ENGINE=InnoDB")
-
 
 sql = "SELECT * FROM Symbols WHERE type='future'"
 cur.execute(sql)
 symbols = cur.fetchall()
 
 for row in symbols:
-	exchange = row[0]
-	symbol = row[1]
-	futureType = row[2]
-	futureCat  = row[3]
-	expireMonth = row[4]
-	expireYear = row[5]
-	stillUpdated = row[6]
+	print row
+	symbolId = row[0]
+	exchange = row[1]
+	symbol = row[2]
+	futureType = row[3]
+	futureCat  = row[4]
+	expireMonth = row[5]
+	expireYear = row[6]
+	currentTime = time.strftime('%Y-%m-%d %H:%M:%S')
+	
 	##first we have to make sure the symbol is in the parent table (Symbols) or inserts into the child (Prices) will fail
 	#sql = "INSERT INTO Symbols(exchange, symbol, type, cat, expire_month, expire_year, updated) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s') ON DUPLICATE KEY UPDATE exchange=VALUES(exchange), type=VALUES(type), cat=VALUES(cat), expire_month=VALUES(expire_month), expire_year=VALUES(expire_year), updated=VALUES(updated)" % \
 	#(exchange, symbol, futureType, futureCat, expireMonth, expireYear, stillUpdated)
@@ -57,8 +39,8 @@ for row in symbols:
 	for index, row in myData.iterrows():
 		#print(row.Open, row.High)
 		#print index
-		sql = "INSERT INTO Prices(date, symbol, open, high, low, last, settle, volume) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s') ON DUPLICATE KEY UPDATE symbol=VALUES(symbol), open=VALUES(open), high=VALUES(high), low=VALUES(low), last=VALUES(last), settle=VALUES(settle), volume=VALUES(volume)" % \
-		(index, symbol, row.Open, row.High, row.Low, row.Last, row.Settle, row.Volume)
+		sql = "INSERT INTO Prices(date, symbol_id, open, high, low, last, settle, volume, created_at, updated_at) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s') ON DUPLICATE KEY UPDATE symbol_id=VALUES(symbol_id), open=VALUES(open), high=VALUES(high), low=VALUES(low), last=VALUES(last), settle=VALUES(settle), volume=VALUES(volume), updated_at=NOW()" % \
+		(index, symbolId, row.Open, row.High, row.Low, row.Last, row.Settle, row.Volume, currentTime, currentTime)
 		#print sql
 		cur.execute(sql)
 
