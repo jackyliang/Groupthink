@@ -13,8 +13,6 @@ class StanfordNLPSentimentsController extends CrudController{
     public function all($entity){
         parent::all($entity); 
 
-
-
 		$this->filter = \DataFilter::source(new \App\StanfordNLPSentiments);
 		$this->filter->add('stanfordnlp', 'StanfordNLP', 'text');
 		$this->filter->submit('search');
@@ -40,7 +38,7 @@ class StanfordNLPSentimentsController extends CrudController{
 
 		$this->edit = \DataEdit::source(new \App\StanfordNLPSentiments());
 
-		$this->edit->label('Edit Category');
+		$this->edit->label('Edit Stanford NLP');
 
 		$this->edit->add('date', 'Date', 'text')->rule('required');
 		$this->edit->add('symbol_id', 'Symbol ID', 'text')->rule('required');

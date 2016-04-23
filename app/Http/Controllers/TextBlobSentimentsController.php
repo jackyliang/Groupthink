@@ -8,13 +8,13 @@ use \Serverfireteam\Panel\CrudController;
 
 use Illuminate\Http\Request;
 
-class OpinionFinderSentimentsController extends CrudController{
+class TextBlobSentimentsController extends CrudController{
 
     public function all($entity){
         parent::all($entity);
 
-        $this->filter = \DataFilter::source(new \App\OpinionFinderSentiments);
-        $this->filter->add('opinionfinder', 'OpinionFinder', 'text');
+        $this->filter = \DataFilter::source(new \App\TextBlobSentiments);
+        $this->filter->add('textblob', 'TextBlob', 'text');
         $this->filter->submit('search');
         $this->filter->reset('reset');
         $this->filter->build();
@@ -34,9 +34,9 @@ class OpinionFinderSentimentsController extends CrudController{
         
         parent::edit($entity);
 
-        $this->edit = \DataEdit::source(new \App\OpinionFinderSentiments());
+        $this->edit = \DataEdit::source(new \App\TextBlobSentiments());
 
-        $this->edit->label('Edit OpinionFinder');
+        $this->edit->label('Edit TextBlob Sentiments');
 
         $this->edit->add('date', 'Date', 'text')->rule('required');
         $this->edit->add('symbol_id', 'Symbol ID', 'text')->rule('required');
