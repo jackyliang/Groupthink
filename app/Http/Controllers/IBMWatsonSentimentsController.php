@@ -1,19 +1,16 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use \Serverfireteam\Panel\CrudController;
+use Serverfireteam\Panel\CrudController;
 
-use Illuminate\Http\Request;
-
-class IBMWatsonSentimentsController extends CrudController{
-
-    public function all($entity){
+class IBMWatsonSentimentsController extends CrudController
+{
+    public function all($entity)
+    {
         parent::all($entity);
 
-        $this->filter = \DataFilter::source(new \App\IBMWatsonSentiments);
+        $this->filter = \DataFilter::source(new \App\IBMWatsonSentiments());
         $this->filter->add('ibmwatson', 'IBM Watson', 'text');
         $this->filter->submit('search');
         $this->filter->reset('reset');
@@ -35,9 +32,9 @@ class IBMWatsonSentimentsController extends CrudController{
 
         return $this->returnView();
     }
-    
-    public function  edit($entity){
-        
+
+    public function edit($entity)
+    {
         parent::edit($entity);
 
         $this->edit = \DataEdit::source(new \App\IBMWatsonSentiments());
@@ -54,5 +51,5 @@ class IBMWatsonSentimentsController extends CrudController{
         $this->edit->add('sadness', 'Sadness', 'text')->rule('required');
 
         return $this->returnEditView();
-    }    
+    }
 }
