@@ -26,6 +26,7 @@ class PricesController extends CrudController
         $this->grid->add('last', 'Last', true);
         $this->grid->add('settle', 'Settle', true);
         $this->grid->add('volume', 'Volume', true);
+        $this->grid->add('open_interest', 'Open Interest', true);
         $this->grid->add('created_at', 'Created At', true);
         $this->grid->add('updated_at', 'Updated At', true);
         $this->addStylesToGrid();
@@ -46,6 +47,7 @@ class PricesController extends CrudController
         $this->edit->add('last', 'Last', 'text');
         $this->edit->add('settle', 'Settle', 'text');
         $this->edit->add('volume', 'Volume', 'text');
+        $this->edit->add('open_interest', 'Open Interest', 'text');
 
         return $this->returnEditView();
     }
